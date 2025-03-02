@@ -2,7 +2,7 @@ import { prisma } from "@/prisma/client";
 import PostActions from "./PostActions";
 
 import Pagination from "@/app/components/Pagination";
-import PostsGrid, { columns, PostQuery } from "./PostsGrid";
+import PostsGrid, { PostQuery } from "./PostsGrid";
 import { Flex } from "@radix-ui/themes";
 import { Metadata } from "next";
 
@@ -11,15 +11,24 @@ interface Props {
 }
 const PostsPage = async ({ searchParams }: Props) => {
   searchParams = await searchParams; // in next js need to await params
-  const { orderBy: orderByQuery, page } = searchParams;
+  const { search, page } = searchParams;
   const currentPage = Number(page) || 1;
   const pageSize = 16;
-  // const orderBy = columns.map((col) => col.value).includes(orderByQuery)
-  //   ? { [orderByQuery]: "asc" }
-  //   : undefined;
+
+  const where = search
+    ? {
+        OR: [
+          { title: { contains: search } },
+          { description: { contains: search } },
+        ],
+      }
+    : {};
 
   const posts = await prisma.post.findMany({
-    // orderBy,
+    where,
+    orderBy: {
+      createdAt: "desc", // Sort by newest first (use 'asc' for oldest first)
+    },
     skip: (currentPage - 1) * pageSize,
     take: pageSize,
   });

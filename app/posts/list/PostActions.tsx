@@ -1,12 +1,13 @@
 import React from "react";
-import PostStatusFilter from "./PostStatusFilter";
+
 import NewPostBtn from "../new/NewPostBtn";
 import { Flex } from "@radix-ui/themes";
+import PostSearch from "./PostSearch";
 
 const PostActions = () => {
   return (
     <Flex justify={"between"}>
-      {/* <PostStatusFilter /> */}
+      <PostSearch />
       <NewPostBtn />
     </Flex>
   );
