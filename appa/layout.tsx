@@ -1,14 +1,12 @@
-import { Container, Theme } from "@radix-ui/themes";
+import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import NavBar from "./NavBar";
-
 import AuthProvider from "./auth/Provider";
+import NavBar from "./components/NavBar";
+import "./globals.css";
 import { auth } from "@/auth";
 import { Session } from "next-auth";
-import QueryClientProvider from "./QueryClientProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,23 +29,20 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session: Session | null = await auth();
-
+  console.log("session in root layout", session);
   return (
-    <html lang="en">
+    <html lang="en" data-theme="winter">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex-col`}
       >
-        <QueryClientProvider>
-          <AuthProvider>
-            <Theme accentColor="plum">
-              <NavBar session={session} />
-              <main className="p-5">
-                <Container> {children}</Container>
-              </main>
-            </Theme>
-          </AuthProvider>
-        </QueryClientProvider>
+        <AuthProvider>
+          <Theme accentColor="purple" radius="large">
+            <NavBar session={session} />
+            <main className="p-5"> {children}</main>
+          </Theme>
+        </AuthProvider>
       </body>
     </html>
   );
 }
+// TODO LU: I skip 65.10 Configuring Credential provider & 66.11 Registering Users, there are for the user tu register with their own email

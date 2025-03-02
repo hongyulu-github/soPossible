@@ -1,22 +1,11 @@
-import { auth } from "@/auth";
-import ProductCard from "./components/ProductCard";
+import { Grid } from "@radix-ui/themes";
+import { Metadata } from "next";
 
 export default async function Home() {
-  const session = await auth();
-
-  return (
-    <main>
-      <h1>hello {session?.user?.name}</h1>
-      <ProductCard />
-    </main>
-
-    // {/* <Image src={jellyfish} alt="jellyfish" /> */}
-
-    // {/* <Image
-    //   src="https://bit.ly/react-cover"
-    //   alt="coffee"
-    //   fill
-    //   className="object-cover"
-    // /> */}
-  );
+  return <Grid columns={{ initial: "1", md: "2" }} gap={"5"}></Grid>;
 }
+
+export const metadata: Metadata = {
+  title: "So Possible - Dashboard",
+  description: "View a summary of project issues",
+};

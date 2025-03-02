@@ -12,5 +12,5 @@ export async function middleware(request: Request) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:id*"],
+  matcher: ["/dashboard/:id*", "/create"],
 };
