@@ -10,9 +10,9 @@ interface Props {
   params: { id: string };
 }
 
-const fetchPost = (issueId: string) =>
+const fetchPost = (postId: string) =>
   prisma.post.findUnique({
-    where: { id: issueId },
+    where: { id: postId },
   });
 
 const PageDetailPage = async ({ params }: Props) => {
@@ -23,7 +23,7 @@ const PageDetailPage = async ({ params }: Props) => {
 
   return (
     <Grid gap={"5"} columns={{ initial: "1", md: "5" }}>
-      <Box className="md:col-span-4">
+      <Box>
         <PostDetails post={post} />
       </Box>
       <Box>

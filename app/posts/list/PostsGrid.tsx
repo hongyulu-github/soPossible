@@ -1,3 +1,4 @@
+"use Client";
 import PostCard from "@/app/components/PostCard";
 import { Post } from "@prisma/client";
 import { Grid } from "@radix-ui/themes";

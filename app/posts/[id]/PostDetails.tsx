@@ -11,7 +11,7 @@ const PostDetails = ({ post }: { post: Post }) => {
         <p>{post.createdAt.toDateString()}</p>
       </Flex>
       <Card>
-        <Markdown className={"prose"}>{post.description}</Markdown>
+        <Markdown>{post.description}</Markdown>
       </Card>
     </Flex>
   );
