@@ -16,6 +16,8 @@ import EditIssueBtn from "./EditIssueBtn";
 import PostDetails from "./PostDetails";
 import Image from "next/image";
 import { StarIcon } from "@radix-ui/react-icons";
+import CommentList from "./CommentList";
+import { getTimeSince } from "@/app/utils";
 
 interface Props {
   params: { id: string };
@@ -34,32 +36,6 @@ const PageDetailPage = async ({ params }: Props) => {
 
   const user = await prisma.user.findUnique({ where: { id: post.userId } });
 
-  const getTimeSincePost = () => {
-    const now = new Date();
-    const postDate = post.createdAt;
-    const diffInSeconds = Math.floor(
-      (now.getTime() - postDate.getTime()) / 1000
-    );
-
-    const units = [
-      { label: "year", seconds: 31536000 },
-      { label: "month", seconds: 2592000 },
-      { label: "day", seconds: 86400 },
-      { label: "hour", seconds: 3600 },
-      { label: "minute", seconds: 60 },
-      { label: "second", seconds: 1 },
-    ];
-
-    for (const unit of units) {
-      const count = Math.floor(diffInSeconds / unit.seconds);
-      if (count >= 1) {
-        return `${count} ${unit.label}${count > 1 ? "s" : ""} ago`;
-      }
-    }
-
-    return "Just now";
-  };
-
   return (
     <Flex gap={"5"} height={"max-content"}>
       <Flex direction={"column"} gap={"3"} width={"400px"}>
@@ -72,7 +48,7 @@ const PageDetailPage = async ({ params }: Props) => {
               size={"2"}
             />
             <Text>{user!.name}</Text>
-            <Text>{getTimeSincePost()}</Text>
+            <Text>{getTimeSince(post.createdAt)}</Text>
           </Flex>
           <StarIcon />
         </Flex>
@@ -90,7 +66,7 @@ const PageDetailPage = async ({ params }: Props) => {
       </Flex>
       <Separator orientation="vertical" size="3" />
       <Flex direction={"column"}>
-        <Box>comentarios</Box>
+        <CommentList post={post} />
       </Flex>
     </Flex>
   );
