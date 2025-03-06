@@ -1,22 +1,36 @@
 "use client";
-import { Avatar, Box, Container, DropdownMenu, Flex } from "@radix-ui/themes";
+import { HomeIcon, PlusCircledIcon } from "@radix-ui/react-icons";
+import {
+  Avatar,
+  Box,
+  Container,
+  DropdownMenu,
+  Flex,
+  Text,
+} from "@radix-ui/themes";
 import classNames from "classnames";
 import { Session } from "next-auth";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NavBar = ({ session }: { session: Session | null }) => {
   return (
-    <nav className="p-5 border-b">
-      <Container>
-        <Flex justify={"between"}>
-          <Flex align={"center"} gap={"3"}>
-            <Link href={"/"}></Link>
-            {NavLinks()}
-          </Flex>
-          {AuthStatus({ session })}
+    <nav className="sticky top-0 left-0 h-screen bg-white shadow-md z-50 p-5 border-r">
+      <Flex direction={"column"} justify={"between"} height={"100%"}>
+        <Flex justify={"between"} direction={"column"} gap={"3"}>
+          <Link href={"/"}>
+            <Image
+              src={"/images/logo.jpg"}
+              alt="soPossible"
+              width={"50"}
+              height={"50"}
+            />
+          </Link>
+          {NavLinks()}
         </Flex>
-      </Container>
+        {AuthStatus({ session })}
+      </Flex>
     </nav>
   );
 };
@@ -24,12 +38,20 @@ const NavBar = ({ session }: { session: Session | null }) => {
 const NavLinks = () => {
   const currentPath = usePathname();
   const links = [
-    { label: "Dashboard", href: "/" },
-    { label: "Posts", href: "/posts/list" },
+    {
+      label: "Posts",
+      href: "/",
+      icon: <HomeIcon className="w-5 h-5 inline" />,
+    },
+    {
+      label: "Create",
+      href: "/posts/new",
+      icon: <PlusCircledIcon className="w-5 h-5 inline" />,
+    },
   ];
 
   return (
-    <ul className="flex gap-5">
+    <ul className="flex gap-3 flex-col">
       {links.map((link) => (
         <li
           className={classNames({
@@ -38,7 +60,12 @@ const NavLinks = () => {
           })}
           key={link.href}
         >
-          <Link href={link.href}>{link.label}</Link>
+          <Link href={link.href}>
+            <Flex gap={"2"} justify={"start"} align={"center"}>
+              {link.icon}
+              {link.label}
+            </Flex>
+          </Link>
         </li>
       ))}
     </ul>

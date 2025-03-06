@@ -1,4 +1,4 @@
-import { Container, Theme } from "@radix-ui/themes";
+import { Container, Flex, Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
@@ -40,10 +40,12 @@ export default async function RootLayout({
         <QueryClientProvider>
           <AuthProvider>
             <Theme accentColor="plum">
-              <NavBar session={session} />
-              <main className="p-5">
-                <Container> {children}</Container>
-              </main>
+              <Flex>
+                <NavBar session={session} />
+                <main className="p-5">
+                  <Container> {children}</Container>
+                </main>
+              </Flex>
             </Theme>
           </AuthProvider>
         </QueryClientProvider>
