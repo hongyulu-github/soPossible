@@ -20,6 +20,7 @@ model User {
   Authenticator Authenticator[]
   Post          Post[]
   sessions      Session[]
+  comments      Comment[]
 }
 
 model Account {
@@ -55,6 +56,15 @@ model Post {
   user        User     @relation(fields: [userId], references: [id])
 
   @@index([userId], map: "Post_userId_fkey")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  postId    String   @unique
+  text      String   @db.VarChar(255)
+  userId    String   @unique
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model Session {
