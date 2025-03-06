@@ -2,14 +2,15 @@ import { getTimeSince } from "@/app/utils";
 import { auth } from "@/auth";
 import { prisma } from "@/prisma/client";
 import { Post } from "@prisma/client";
-import { StarIcon, TrashIcon } from "@radix-ui/react-icons";
 import { Avatar, Box, Flex, Strong, Text } from "@radix-ui/themes";
 import Image from "next/image";
+import DeleteOrSaveBtn from "./DeleteOrSaveBtn";
 
 const PostDetails = async ({ post }: { post: Post }) => {
   const user = await prisma.user.findUnique({ where: { id: post.userId } });
   const session = await auth();
   const isMyPost = user?.email === session?.user?.email;
+
   return (
     <Flex direction={"column"} gap={"3"} width={"400px"}>
       <Flex justify={"between"} align={"center"}>
@@ -23,7 +24,7 @@ const PostDetails = async ({ post }: { post: Post }) => {
           <Text>{user!.name}</Text>
           <Text>{getTimeSince(post.createdAt)}</Text>
         </Flex>
-        {isMyPost ? <TrashIcon /> : <StarIcon />}
+        {session && <DeleteOrSaveBtn isMyPost={isMyPost} postId={post.id} />}
       </Flex>
       <Box position={"relative"} width={"400px"} height={"400px"}>
         <Image
