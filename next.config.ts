@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "bit.ly",
+        hostname: "plus.unsplash.com",
       },
     ],
   },

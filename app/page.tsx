@@ -7,5 +7,5 @@ export default async function Home() {
 
 export const metadata: Metadata = {
   title: "So Possible - Dashboard",
-  description: "View a summary of project issues",
+  description: "View a summary of the soPossible posts",
 };

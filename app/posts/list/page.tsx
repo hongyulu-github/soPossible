@@ -50,6 +50,6 @@ const PostsPage = async ({ searchParams }: Props) => {
 export default PostsPage;
 
 export const metadata: Metadata = {
-  title: "Issue Tracker - Issue List",
-  description: "View all of project issues",
+  title: "soPossible - posts",
+  description: "View all of soPossible posts",
 };
