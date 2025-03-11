@@ -6,7 +6,11 @@ interface CloudinaryResult {
   public_id: string;
 }
 
-const UploadPage = (handleUpload) => {
+const UploadPage = ({
+  handleUpload,
+}: {
+  handleUpload: (arg0: string) => void;
+}) => {
   const [publicId, setPublicId] = useState("");
 
   return (
@@ -16,7 +20,7 @@ const UploadPage = (handleUpload) => {
           src={publicId}
           width={270}
           height={270}
-          alt="uppoaded image"
+          alt="uploaded image"
         />
       )}
       <CldUploadWidget
@@ -24,7 +28,7 @@ const UploadPage = (handleUpload) => {
           if (result.event !== "success") return;
           const info = result.info as CloudinaryResult;
           setPublicId(info.public_id);
-          handleUpload(info.public_id);
+          handleUpload(result.info!.secure_url);
         }}
         uploadPreset="soPossible"
       >

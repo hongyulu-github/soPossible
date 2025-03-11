@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   if (!session) return NextResponse.json({}, { status: 401 });
 
   const userEmail = session.user?.email;
-  const user = await prisma.user.findUnique({ where: { email: userEmail } });
+  const user = await prisma.user.findUnique({ where: { email: userEmail! } });
   if (!user) return NextResponse.json({}, { status: 401 });
 
   const body = await request.json();
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const commentId = searchParams.get("id"); // Get the id from query params
+  const commentId = searchParams.get("id");
 
   if (!commentId) {
     return NextResponse.json({ error: "Missing comment ID" }, { status: 400 });
