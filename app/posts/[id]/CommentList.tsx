@@ -1,39 +1,32 @@
-import { getTimeSince } from "@/app/utils";
 import { prisma } from "@/prisma/client";
-import { Comment, Post } from "@prisma/client";
-import { Box, Flex, Strong, Text } from "@radix-ui/themes";
-import React from "react";
-
-const CommentItem = async ({ comment }: { comment: Comment }) => {
-  const user = await prisma.user.findUnique({ where: { id: comment.userId } });
-  return (
-    <Flex key={comment.id} justify={"between"}>
-      <Text wrap={"balance"}>
-        <Strong>{user!.name}</Strong> {comment.text}
-      </Text>
-      <Text wrap={"nowrap"} color="gray">
-        {getTimeSince(comment.createdAt)}
-      </Text>
-    </Flex>
-  );
-};
+import { Post } from "@prisma/client";
+import { Box, Flex } from "@radix-ui/themes";
+import AddComment from "./AddComment";
+import { CommentItem } from "./CommentItem";
 
 const CommentList = async ({ post }: { post: Post }) => {
   const { id: postId } = post;
   const commentList = await prisma.comment.findMany({
     where: { postId: postId },
+    orderBy: { createdAt: "desc" },
   });
 
   return (
-    <Box width={"300px"}>
-      <Flex>
+    <Flex
+      width={"400px"}
+      height={"600px"}
+      direction={"column"}
+      justify={"between"}
+    >
+      <Flex direction={"column"} className="overflow-auto">
         {commentList.map((comment) => (
           <Box key={comment.id} width={"100%"}>
             <CommentItem comment={comment} />
           </Box>
         ))}
       </Flex>
-    </Box>
+      <AddComment postId={post.id} />
+    </Flex>
   );
 };
 

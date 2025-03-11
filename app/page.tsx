@@ -14,7 +14,7 @@ const PostsPage = async ({ searchParams }: Props) => {
   searchParams = await searchParams; // in next js need to await params
   const { search, page } = searchParams;
   const currentPage = Number(page) || 1;
-  const pageSize = 16;
+  const pageSize = 8;
 
   const where = search
     ? {
@@ -36,14 +36,16 @@ const PostsPage = async ({ searchParams }: Props) => {
   const postCount = await prisma.post.count({});
 
   return (
-    <Flex direction={"column"} gap={"3"}>
+    <Flex direction={"column"} gap={"3"} className="relative">
       <PostActions />
       <PostsGrid posts={posts} searchParams={searchParams} />
-      <Pagination
-        itemCount={postCount}
-        pageSize={pageSize}
-        currentPage={currentPage}
-      />
+      <div className="fixed bottom-10">
+        <Pagination
+          itemCount={postCount}
+          pageSize={pageSize}
+          currentPage={currentPage}
+        />
+      </div>
     </Flex>
   );
 };

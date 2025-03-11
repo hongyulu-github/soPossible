@@ -19,9 +19,14 @@ const PageDetailPage = async ({ params }: Props) => {
   if (!post) notFound();
 
   return (
-    <Flex gap={"5"} height={"max-content"}>
+    <Flex
+      gap={"5"}
+      height={"max-content"}
+      p={"4"}
+      direction={{ initial: "column", sm: "row" }}
+    >
       <PostDetails post={post} />
-      <Separator orientation="vertical" size="3" />
+      <Separator orientation={{ sm: "horizontal", md: "vertical" }} size="3" />
       <Flex direction={"column"}>
         <CommentList post={post} />
       </Flex>

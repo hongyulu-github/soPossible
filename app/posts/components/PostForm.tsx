@@ -50,7 +50,7 @@ const PostForm = ({ post }: { post?: Post }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
-    <div className="max-w-xl space-y-3">
+    <div className="max-w-xl space-y-3 p-4">
       {error && (
         <Callout.Root color="red">
           <Callout.Text>{error}</Callout.Text>

@@ -60,9 +60,9 @@ model Post {
 
 model Comment {
   id        String   @id @default(cuid())
-  postId    String   @unique
+  postId    String
   text      String   @db.VarChar(255)
-  userId    String   @unique
+  userId    String
   createdAt DateTime @default(now())
   user      User     @relation(fields: [userId], references: [id])
 }
