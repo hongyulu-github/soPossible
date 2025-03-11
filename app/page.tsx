@@ -15,7 +15,6 @@ const PostsPage = async ({ searchParams }: Props) => {
   const { search, page } = searchParams;
   const currentPage = Number(page) || 1;
   const pageSize = 8;
-
   const where = search
     ? {
         OR: [
@@ -28,20 +27,23 @@ const PostsPage = async ({ searchParams }: Props) => {
   const posts = await prisma.post.findMany({
     where,
     orderBy: {
-      createdAt: "desc", // Sort by newest first (use 'asc' for oldest first)
+      createdAt: "desc",
     },
     skip: (currentPage - 1) * pageSize,
     take: pageSize,
   });
-  const postCount = await prisma.post.count({});
+
+  const searchedPosts = await prisma.post.findMany({
+    where,
+  });
 
   return (
     <Flex direction={"column"} gap={"3"} className="relative">
       <PostActions />
-      <PostsGrid posts={posts} searchParams={searchParams} />
+      <PostsGrid posts={posts} />
       <div className="fixed bottom-10">
         <Pagination
-          itemCount={postCount}
+          itemCount={searchedPosts.length}
           pageSize={pageSize}
           currentPage={currentPage}
         />

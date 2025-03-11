@@ -1,12 +1,13 @@
 "use client";
-
 import { PaperPlaneIcon } from "@radix-ui/react-icons";
 import { Button, Flex } from "@radix-ui/themes";
 import axios from "axios";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const AddComment = ({ postId }: { postId: string }) => {
+  const { data: session } = useSession();
   const router = useRouter();
   const [newComment, setNewComment] = useState("");
   const onComment = async () => {
@@ -16,7 +17,7 @@ const AddComment = ({ postId }: { postId: string }) => {
     setNewComment("");
   };
 
-  return (
+  return session ? (
     <Flex justify={"between"}>
       <input
         placeholder="Reply to comment…"
@@ -30,6 +31,8 @@ const AddComment = ({ postId }: { postId: string }) => {
         <PaperPlaneIcon />
       </Button>
     </Flex>
+  ) : (
+    <></>
   );
 };
 

@@ -6,8 +6,6 @@ import "./globals.css";
 import NavBar from "./NavBar";
 
 import AuthProvider from "./auth/Provider";
-import { auth } from "@/auth";
-import { Session } from "next-auth";
 import QueryClientProvider from "./QueryClientProvider";
 
 const geistSans = Geist({
@@ -30,8 +28,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session: Session | null = await auth();
-
   return (
     <html lang="en">
       <body
@@ -41,7 +37,7 @@ export default async function RootLayout({
           <AuthProvider>
             <Theme accentColor="plum">
               <Flex>
-                <NavBar session={session} />
+                <NavBar />
                 <main className="p-5">
                   <Container> {children}</Container>
                 </main>

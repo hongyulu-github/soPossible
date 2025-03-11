@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
   if (!session) return NextResponse.json({}, { status: 401 });
 
   const userEmail = session.user?.email;
-  const user = await prisma.user.findUnique({ where: { email: userEmail } });
+  const user = await prisma.user.findUnique({ where: { email: userEmail! } });
   if (!user) return NextResponse.json({}, { status: 401 });
 
   const body = await request.json();

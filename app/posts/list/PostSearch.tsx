@@ -10,7 +10,7 @@ const PostSearch = () => {
   const searchParams = useSearchParams();
   const [search, setSearch] = useState("");
 
-  const onSearch = (e) => {
+  const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 

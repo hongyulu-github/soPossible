@@ -1,20 +1,15 @@
 "use client";
 import { HomeIcon, PlusCircledIcon } from "@radix-ui/react-icons";
-import {
-  Avatar,
-  Box,
-  Container,
-  DropdownMenu,
-  Flex,
-  Text,
-} from "@radix-ui/themes";
+import { Avatar, Box, DropdownMenu, Flex } from "@radix-ui/themes";
 import classNames from "classnames";
 import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const NavBar = ({ session }: { session: Session | null }) => {
+const NavBar = () => {
+  const { data: session } = useSession();
   return (
     <nav className="sticky top-0 left-0 h-screen bg-white shadow-md z-50 p-5 border-r">
       <Flex direction={"column"} justify={"between"} height={"100%"}>
