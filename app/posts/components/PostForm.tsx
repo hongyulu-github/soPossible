@@ -1,5 +1,5 @@
 "use client";
-import UploadPage from "@/app/upload/page";
+import UploadPage from "@/app/components/UploadPage";
 import { postSchema } from "@/app/validationSchema";
 import { Post } from "@prisma/client";
 import { Button, Callout, Flex, Spinner, TextField } from "@radix-ui/themes";

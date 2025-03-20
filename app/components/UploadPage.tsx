@@ -4,13 +4,14 @@ import { useState } from "react";
 
 interface CloudinaryResult {
   public_id: string;
+  url: string;
 }
 
-const UploadPage = ({
-  handleUpload,
-}: {
-  handleUpload: (arg0: string) => void;
-}) => {
+interface UploadPageProps {
+  handleUpload: (url: string) => void;
+}
+
+const UploadPage = ({ handleUpload }: UploadPageProps) => {
   const [publicId, setPublicId] = useState("");
 
   return (
@@ -28,7 +29,7 @@ const UploadPage = ({
           if (result.event !== "success") return;
           const info = result.info as CloudinaryResult;
           setPublicId(info.public_id);
-          handleUpload(result.info!.secure_url);
+          handleUpload(info.url);
         }}
         uploadPreset="soPossible"
       >

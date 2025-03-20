@@ -4,11 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth();
   if (!session) return NextResponse.json({}, { status: 401 });
-  const postId = params.id;
+  const trueParams = await params;
+  const postId = trueParams.id;
   const post = await prisma.post.findUnique({ where: { id: postId } });
   if (!post) return NextResponse.json("Invalid issue", { status: 404 });
 

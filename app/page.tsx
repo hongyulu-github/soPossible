@@ -8,11 +8,11 @@ import PostsGrid, { PostQuery } from "./posts/list/PostsGrid";
 import PostActions from "./posts/list/PostActions";
 
 interface Props {
-  searchParams: PostQuery;
+  searchParams: Promise<PostQuery>;
 }
 const PostsPage = async ({ searchParams }: Props) => {
-  searchParams = await searchParams; // in next js need to await params
-  const { search, page } = searchParams;
+  const trueSearchParams = await searchParams; // in next js need to await params
+  const { search, page } = trueSearchParams;
   const currentPage = Number(page) || 1;
   const pageSize = 8;
   const where = search

@@ -5,7 +5,7 @@ import CommentList from "./CommentList";
 import PostDetails from "./PostDetails";
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 const fetchPost = (postId: string) =>

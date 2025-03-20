@@ -22,7 +22,7 @@ const PostCard = async ({ post }: Props) => {
         <Card size="2">
           <Inset clip="padding-box" side="top" pb="current">
             <img
-              src={image}
+              src={image!}
               alt={title}
               style={{
                 display: "block",
