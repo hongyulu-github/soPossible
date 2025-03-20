@@ -4,8 +4,9 @@ import Pagination from "@/app/components/Pagination";
 
 import { Flex } from "@radix-ui/themes";
 import { Metadata } from "next";
-import PostsGrid, { PostQuery } from "./posts/list/PostsGrid";
 import PostActions from "./posts/list/PostActions";
+import PostsGrid, { PostQuery } from "./posts/list/PostsGrid";
+import PrivacyPolicyLink from "./components/PrivacyPolicyLink";
 
 interface Props {
   searchParams: Promise<PostQuery>;
@@ -48,6 +49,7 @@ const PostsPage = async ({ searchParams }: Props) => {
           currentPage={currentPage}
         />
       </div>
+      <PrivacyPolicyLink />
     </Flex>
   );
 };

@@ -24,7 +24,7 @@ const NavBar = () => {
           </Link>
           {NavLinks()}
         </Flex>
-        {AuthStatus({ session })}
+        <Flex direction={"column"}>{AuthStatus({ session })}</Flex>
       </Flex>
     </nav>
   );
