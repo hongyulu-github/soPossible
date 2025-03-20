@@ -2,11 +2,10 @@ import { auth } from "@/auth";
 import { prisma } from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
-interface Props {
-  params: { id: string };
-}
-
-export async function DELETE(request: NextRequest, { params }: Props) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   const session = await auth();
   if (!session) return NextResponse.json({}, { status: 401 });
   const postId = params.id;
