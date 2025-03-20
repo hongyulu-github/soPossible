@@ -35,10 +35,6 @@ const PostForm = ({ post }: { post?: Post }) => {
     }
   }, [imageUrl]);
 
-  useEffect(() => {
-    console.log(newPost);
-  }, [newPost]);
-
   const handlePost = async () => {
     try {
       setIsSubmitting(true);

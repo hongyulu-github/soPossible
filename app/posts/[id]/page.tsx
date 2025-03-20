@@ -14,7 +14,8 @@ const fetchPost = (postId: string) =>
   });
 
 const PageDetailPage = async ({ params }: Props) => {
-  const postId = params.id;
+  const trueParams = await params;
+  const postId = trueParams.id;
   const post = await fetchPost(postId);
   if (!post) notFound();
 
@@ -37,7 +38,8 @@ const PageDetailPage = async ({ params }: Props) => {
 export default PageDetailPage;
 
 export async function generateMetadata({ params }: Props) {
-  const post = await await fetchPost(params.id);
+  const trueParams = await params;
+  const post = await fetchPost(trueParams.id);
   return {
     title: post?.title,
     description: "Details of post " + post?.title,
