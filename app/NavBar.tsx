@@ -16,10 +16,10 @@ const NavBar = () => {
         <Flex justify={"between"} direction={"column"} gap={"3"}>
           <Link href={"/"}>
             <Image
-              src={"/images/logo.jpg"}
+              src={"/images/logo.png"}
               alt="soPossible"
-              width={"50"}
-              height={"50"}
+              width={"100"}
+              height={"100"}
             />
           </Link>
           {NavLinks()}
