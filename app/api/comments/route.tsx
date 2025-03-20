@@ -3,7 +3,7 @@ import { prisma } from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
-export const commentSchema = z.object({
+const commentSchema = z.object({
   text: z.string().min(1).max(255),
   postId: z.string().min(1).max(255),
 });
